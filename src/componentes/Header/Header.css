@@ -1,0 +1,145 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'popins', sans-serif !important;
+}
+header {
+    display: flex;
+    background: #FFA500;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+  } 
+  
+  #title_logo{
+    width: 100px;
+    height: auto;
+    margin-left: 110px;
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    text-align: center;
+    margin-top: 15px;
+  }
+  #navbarNav{
+    margin-right: 110px;
+    text-align: center;
+  }
+  
+  /* MENU NORMAL */
+  .menu {
+    list-style: none;
+    padding: 50px;
+    margin-left: auto;
+    text-decoration: none;
+  }
+  
+  .item-menu {
+    display: inline-block;
+    margin-left: 20px;
+    text-decoration: none;
+    color: white !important;
+  }
+  
+  .item-menu a {
+    text-decoration: none;
+    color: white !important;
+    font-weight: 600;
+  }
+  
+  .menu li:first-child {
+    margin-left: 0;
+  }
+  /* MENU SANDUICHE ATIVA NO MAX 600PX */
+  .hamburger-menu {
+    display: none;
+    margin-left: auto;
+    padding: 50px;
+    color: white;
+  }
+  
+  @media (max-width: 600px) {
+    #logo {
+      width: 155px;
+      height: 55px;
+      margin-left: 15px;
+      margin-top: 5px;
+    } 
+  
+    .menu {
+      display: none;
+      padding: 10px;
+    }
+  
+    .hamburger-menu {
+      display: block;
+      cursor: pointer;
+      padding: 25px;
+    }
+  
+    .hamburger-menu span {
+      display: block;
+      cursor: pointer;
+      width: 30px;
+      height: 4px;
+      background-color:white;
+      margin-top: 6px;
+    }
+    .hamburger-menu span:last-child {
+      margin-bottom: 0;
+    }
+  
+    .menu.show {
+      display: block !important;
+      position: absolute;
+      top: 100px;
+      right: 0;
+      background-color: #FFA500;
+      padding: 20px;
+      border-radius: 0 0 0 10px;
+      list-style: none;
+      margin: 0;
+      text-align: right;
+    }
+  
+    .menu.show li {
+      display: block;
+      margin-bottom: 10px;
+    }
+  
+    .menu.show li a {
+      color: white !important;
+      font-size: 18px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+  }
+  
+  @media (min-width: 600px) {
+    #logo {
+      width: 200px;
+      height: 70px;
+      margin-left: 30px;
+      margin-top: 5px;
+    } 
+  }
+  @media (min-width: 768px) {
+    #logo {
+      width: 220px;
+      height: 75px;
+      margin-left: 50px;
+      margin-top: 5px;
+    } 
+  }
+  @media (min-width: 1000px) {
+    #logo {
+      width: 230px;
+      height: 80px;
+      margin-left: 120px;
+      margin-top: 5px;
+    } 
+    .menu {
+      margin-right: 80px;;
+    }
+  }

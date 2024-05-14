@@ -1,0 +1,82 @@
+.body{
+    font-family: 'Poppins' !important;
+}
+.home-container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #FFFFFF;
+}
+
+/* Logo styling */
+.logo {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Text paragraph styling */
+p {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btns{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centralizar os itens verticalmente */
+    justify-content: center; 
+    width: 60%;
+
+}
+.cliente-btn {
+    background-color: #ffc107;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Prospect button */
+.cadastrar-btn {
+    background-color: #333333;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* "Conheça-nos" button */
+.conheca {
+    position: fixed; /* ou "absolute", dependendo do comportamento desejado */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #D9D9D9;
+    color: #333;
+    padding: 10px 0;
+}
+.conheca-btn{
+    background-color: #D9D9D9;
+    color: #000000;
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}

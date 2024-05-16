@@ -4,30 +4,41 @@ import axios from 'axios';
 
 export default function Teste() {
     const [file, setFile] = useState(null);
-    const [nomeProduto, setNomeProduto] = useState('');
+    const [productname, setproductname] = useState('');
     const [response, setResponse] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         let formData = new FormData();
-        formData.append("productname", nomeProduto);
+        formData.append("productname", productname);
         formData.append("file", file);
 
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/enviarAnalise',
-            data: formData,
-            headers: {'Content-Type': 'multipart/file' }
-        })
-        .then(function (response) {
-            console.log(formData);
+        try {
+            const response = await axios.post('http://localhost:8080/enviarAnalise', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log("Response Data:", response.data);
             setResponse(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        } catch (error) {
+            if (error.response) {
+                console.log("Response Data:", error.response.data);
+                console.log("Response Status:", error.response.status);
+                console.log("Response Headers:", error.response.headers);
+                setResponse(error.response.data);
+            } else if (error.request) {
+                console.log("Request Data:", error.request);
+                setResponse("No response received from the server");
+            } else {
+                console.log("Error Message:", error.message);
+                setResponse(error.message);
+            }
+            console.log("Error Config:", error.config);
+        }
     };
+
     return (
         <div className="container-teste">
             <h1>Faça um teste de análise de cotação de compras:</h1>
@@ -52,13 +63,13 @@ export default function Teste() {
                         type="text"
                         className="form-control"
                         id="textInput"
-                        value={nomeProduto}
-                        onChange={(e) => setNomeProduto(e.target.value)}/>
+                        value={productname}
+                        onChange={(e) => setproductname(e.target.value)}/>
                 </div>
 
                 <button type="submit" className="btn btn-primary">Enviar</button>
             </form>
-            {response && <div className="response-message">{response}</div>}
+            {response && <div className="response-message">{typeof response === 'object' ? JSON.stringify(response, null, 2) : response}</div>}
         </div>
     );
 }

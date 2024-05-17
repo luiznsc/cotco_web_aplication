@@ -4,23 +4,10 @@ import './Header.css'
 
 
 export default function Header() {    
- /*const [showMenu, setShowMenu] = useState(false);
-
-  function handleMenuClick() {
-    setShowMenu(!showMenu);
-  }
-
-  function Disconect(){
-    const confirmDisconnect = window.confirm("Tem certeza de que deseja desconectar?");
-    if (confirmDisconnect) {
-      localStorage.clear();
-      window.location.href = "/";
-    }
-  }*/
 
   return (
     <header className="navbar navbar-expand-lg navbar-light bg-orange">
-      <Link className="navbar-brand" to="/home">
+      <Link className="navbar-brand" to="/">
         <p id='title_logo' >COT&CO</p>
       </Link>
 
@@ -32,7 +19,7 @@ export default function Header() {
       <div className="collapse navbar-collapse justify-content-end mr-auto" id="navbarNav">
         <ul className="navbar-nav">
           <li className="item-menu">
-            <Link className="item-menu a" to="/home">CONHEÇA-NOS</Link>
+            <Link className="item-menu a" to="/">CONHEÇA-NOS</Link>
           </li>
           <li className="item-menu">
             <Link className="item-menu a" to="/teste">TESTE GRÁTIS</Link>

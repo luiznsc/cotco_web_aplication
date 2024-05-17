@@ -18,7 +18,7 @@ export default function App() {
         </Helmet>
 
         <Routes>
-          <Route path='/home' element={<>
+          <Route path='/' element={<>
             <Home />
           </>} />
 

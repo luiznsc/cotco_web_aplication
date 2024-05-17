@@ -10,7 +10,7 @@ const Login = () => {
     const [emailEmpresa, setEmailEmpresa] = useState('');
     const [senhaEmpresa, setSenhaEmpresa] = useState('');
     const [error, setError] = useState(null);
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const schema = Yup.object().shape({
         emailEmpresa: Yup.string().email('E-mail inválido').required('Informe o e-mail.'),
@@ -26,28 +26,38 @@ const Login = () => {
     };
 
     const handleFormSubmit = async (event) => {
-      event.preventDefault();
+        event.preventDefault();
+        setError(null); // Reseta o estado de erro ao submeter o formulário
     
-      try {
-          await schema.validate({ emailEmpresa, senhaEmpresa }, { abortEarly: false });
+        try {
+            await schema.validate({ emailEmpresa, senhaEmpresa }, { abortEarly: false });
     
-          const situacaoEmpresa = 'ATIVA'
-          const response = await axios.get('http://localhost:8080/empresas/buscar', {
-              params: { emailEmpresa, senhaEmpresa, situacaoEmpresa },
-          });
+            const situacaoEmpresa = 'ATIVA';
+            const response = await axios.get('http://localhost:8080/empresas/buscar', {
+                params: { emailEmpresa, senhaEmpresa, situacaoEmpresa },
+            });
 
-           if (response.data.success) {
-               toast.success('Login realizado com sucesso!');
-              //     navigate('/home');
+            console.log('Response:', response); // Log da resposta para debug
+
+            const empresa = response.data;
+            if (empresa && empresa.situacaoEmpresa === 'ATIVA') {
+                toast.success('Login realizado com sucesso!');
+                navigate('/teste');
             } else {
-              toast.error('Dados incorretos.');
-          }
-      } catch (error) {
-          toast.error('Dados de acesso não encontrados no banco de dados.');
-      }
-    };
-    
+                toast.error('Empresa Inativa.');
 
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.response) {
+            } else if (error.request) {
+                toast.error('Sem resposta do servidor.');
+            } else {
+                toast.error('Erro na configuração da requisição.');
+            }
+            toast.error('Dados de acesso não encontrados no banco de dados.');
+        }
+    };
     return (
         <Container className="d-flex justify-content-center align-items-center vh-100">
             <Form className="w-50" onSubmit={handleFormSubmit}>

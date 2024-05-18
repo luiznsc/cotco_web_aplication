@@ -42,10 +42,11 @@ const Login = () => {
             const empresa = response.data;
             if (empresa && empresa.situacaoEmpresa === 'ATIVA') {
                 toast.success('Login realizado com sucesso!');
-                navigate('/teste');
+                setTimeout(() => {
+                    navigate('/teste');
+                }, 2000);
             } else {
                 toast.error('Empresa Inativa.');
-
             }
         } catch (error) {
             console.error('Error:', error);

@@ -25,34 +25,34 @@ const Cadastro = () => {
             .matches(/^(\(?\d{2}\)?\s?)?\d{4,5}\-\d{4}$/, 'Telefone inválido. Formato esperado: (XX) XXXX-XXXX ou XXXXX-XXXX'),
         emailEmpresa: Yup.string().email('E-mail inválido').required('E-mail é obrigatório')
             .matches(/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/, 'E-mail inválido'),
-            senhaEmpresa: Yup.string().required('Senha é obrigatória')
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-              "Deve conter 8 caracteres, com pelo menos uma letra maiúscula, uma letra minúscula e um número"
-            )
+        senhaEmpresa: Yup.string().required("Preencha o campo senha")
+                    .min(8, 'A senha deve ter no mínimo 8 caracteres')
+                    .max(8, 'A senha deve ter no máximo 8 caracteres')
+                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'A senha deve conter pelo menos um caractere especial, uma letra maiúscula e um número')
     });
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+        console.log(senhaEmpresa);
 
         // Validação dos campos
         try {
-            await schema.validate({ respEmpresa, rzSocialEmpresa, cnpjEmpresa, telEmpresa, emailEmpresa });
+            await schema.validate({ respEmpresa, rzSocialEmpresa, cnpjEmpresa, telEmpresa, emailEmpresa, senhaEmpresa });
         } catch (err) {
             toast.error(err.errors[0]);
             return;
         }
         try {
             const response = await axios.post('http://localhost:8080/empresas/cadastrar', { respEmpresa, rzSocialEmpresa, cnpjEmpresa, telEmpresa, emailEmpresa, senhaEmpresa });
-              if (response.data.success) {
+                console.log(response.status.sucess);
+                if (response.status === 200) {
                   toast.success('Cadastro realizado com sucesso!');
-                  navigate('/login');
+                  setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
               } else {
                  toast.error('Não foi possível realizar o cadastro.');
               }
-              toast.success('Cadastro realizado com sucesso!');
-              setTimeout(() => {
-                  navigate('/login');
-              }, 2000);
         } catch (error) {
             toast.error('Não foi possível realizar o cadastro.');
         }
@@ -115,7 +115,7 @@ const Cadastro = () => {
               <Form.Group controlId="formSenhaEmpresa">
                   <Form.Label>SENHA:</Form.Label>
                   <Form.Control
-                      type="senha"
+                      type="password"
                       placeholder="Informe uma senha"
                       value={senhaEmpresa}
                       onChange={(e) => setSenhaEmpresa(e.target.value)}

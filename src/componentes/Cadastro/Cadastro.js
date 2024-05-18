@@ -33,9 +33,7 @@ const Cadastro = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(senhaEmpresa);
 
-        // Validação dos campos
         try {
             await schema.validate({ respEmpresa, rzSocialEmpresa, cnpjEmpresa, telEmpresa, emailEmpresa, senhaEmpresa });
         } catch (err) {

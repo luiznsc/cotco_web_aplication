@@ -37,8 +37,6 @@ const Login = () => {
                 params: { emailEmpresa, senhaEmpresa, situacaoEmpresa },
             });
 
-            console.log('Response:', response); // Log da resposta para debug
-
             const empresa = response.data;
             if (empresa && empresa.situacaoEmpresa === 'ATIVA') {
                 toast.success('Login realizado com sucesso!');

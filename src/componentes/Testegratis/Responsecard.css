@@ -1,0 +1,32 @@
+.response-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .response-image {
+    max-width: 150px;
+    margin-right: 20px;
+  }
+  
+  .response-info {
+    flex-grow: 1;
+  }
+  
+  .response-info h3 {
+    font-size: 1.5em; /* Aumente o tamanho da fonte do título do produto */
+    margin-bottom: 0.5em;
+  }
+  
+  .response-price {
+    font-weight: bold;
+    color: green;
+    font-size: 1.2em;
+    text-align: left;
+  }
+  .response-message {
+    color: #FF0000; 
+  }
+  

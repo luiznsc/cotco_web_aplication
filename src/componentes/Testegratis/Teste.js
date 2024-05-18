@@ -1,14 +1,29 @@
-import './Teste.css';
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import { ResponseCard } from './Responsecard';
 import axios from 'axios';
+import './Teste.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Teste() {
     const [file, setFile] = useState(null);
     const [productname, setproductname] = useState('');
+    const [criterio, setcriterio] = useState('');
     const [response, setResponse] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!file || !file.name.endsWith('.csv')) {
+            toast.error('Por favor, selecione um arquivo CSV.');
+            return;
+        }
+        if (!productname) {
+            toast.error('Por favor, informe o nome do produto.');
+            return;
+        }
+          
 
         let formData = new FormData();
         formData.append("productname", productname);
@@ -20,28 +35,21 @@ export default function Teste() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log("Response Data:", response.data);
             setResponse(response.data);
         } catch (error) {
             if (error.response) {
-                console.log("Response Data:", error.response.data);
-                console.log("Response Status:", error.response.status);
-                console.log("Response Headers:", error.response.headers);
                 setResponse(error.response.data);
             } else if (error.request) {
-                console.log("Request Data:", error.request);
-                setResponse("No response received from the server");
+                setResponse("Não foram recebidor dados do servidor.");
             } else {
-                console.log("Error Message:", error.message);
                 setResponse(error.message);
             }
-            console.log("Error Config:", error.config);
         }
     };
 
     return (
         <div className="container-teste">
-            <h1>Faça um teste de análise de cotação de compras:</h1>
+            <h1>Faça uma análise de cotação de compras:</h1>
 
             {/* arquivo */}
             <form onSubmit={handleSubmit}>
@@ -53,7 +61,19 @@ export default function Teste() {
                         id="fileInput"
                         onChange={(e) => setFile(e.target.files[0])}/>
                 </div>
+                <br></br>
 
+                {/* campo 2 */}
+                <div className="mb-3">
+                    <label htmlFor="criterioInput" className="form-label">2. Selecione uma opção:</label>
+                    <select
+                        className="form-control"
+                        id="criterioInput"
+                        value={criterio}
+                        onChange={(e) => setcriterio(e.target.value)}>
+                        <option value="custo benefício">custo benefício</option>
+                    </select>
+                </div>
                 <br></br>
 
                 {/* nome produto */}
@@ -69,7 +89,13 @@ export default function Teste() {
 
                 <button type="submit" className="btn btn-primary">Enviar</button>
             </form>
-            {response && <div className="response-message">{typeof response === 'object' ? JSON.stringify(response, null, 2) : response}</div>}
+
+            {response && Array.isArray(response) ? (
+                response.map((item, index) => <ResponseCard key={index} response={item} />)
+                ) : (
+                <div className="response-message">{response.message}</div>
+            )}
+            <ToastContainer />
         </div>
     );
 }

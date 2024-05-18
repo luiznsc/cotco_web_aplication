@@ -24,7 +24,6 @@ export default function Teste() {
             return;
         }
           
-
         let formData = new FormData();
         formData.append("productname", productname);
         formData.append("file", file);
